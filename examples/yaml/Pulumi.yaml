@@ -1,0 +1,16 @@
+name: tls-self-signed-cert
+runtime: yaml
+resources:
+    cert:
+        type: "tls-self-signed-cert:index:SelfSignedCertificate"
+        properties:
+            dnsName: "cert.example.com"
+            validityPeriodHours: 807660
+            localValidityPeriodHours: 17520
+            subject:
+                commonName: "example-cert"
+                organization: "example-cert LLC"
+outputs:
+    pem: ${cert.pem}
+    privateKey: ${cert.privateKey}
+    caCert: ${cert.caCert}

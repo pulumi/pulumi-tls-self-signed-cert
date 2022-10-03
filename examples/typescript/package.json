@@ -1,0 +1,11 @@
+{
+		"name": "tls-self-signed-cert",
+		"devDependencies": {
+			"@types/node": "^14"
+		},
+		"dependencies": {
+			"typescript": "^4.0.0",
+			"@pulumi/pulumi": "^3.0.0",
+			"@pulumi/tls-self-signed-cert": "0.0.1"
+		}
+}
