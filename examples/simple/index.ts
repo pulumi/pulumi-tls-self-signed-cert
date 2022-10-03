@@ -1,8 +1,16 @@
-import * as xyz from "@pulumi/xyz";
+import * as selfSignedCert from "@pulumi/tls-self-signed-cert";
 
-const page = new xyz.StaticPage("page", {
-    indexContent: "<html><body><p>Hello world!</p></body></html>",
+const cert = new selfSignedCert.SelfSignedCertificate("ca", {
+    dnsName: "web.lbrlabs.com",
+    ipAddress: "192.168.0.1",
+    validityPeriodHours: 807660,
+    localValidityPeriodHours: 17520,
+    subject: {
+        commonName: "lbrlabs",
+        organization: "lbrlabs LLC"
+    },
 });
 
-export const bucket = page.bucket;
-export const url = page.websiteUrl;
+export const pem = cert.pem;
+export const privateKey = cert.privateKey;
+export const caCert = cert.caCert;

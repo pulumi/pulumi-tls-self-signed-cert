@@ -1,30 +1,140 @@
 {
-    "name": "xyz",
+    "name": "tls-self-signed-cert",
+    "types": {
+        "tls-self-signed-cert:index:emptytype": {
+            "type": "object"
+        },
+        "tls-self-signed-cert:index:AllowedUses": {
+            "type": "string",
+            "enum": [
+                { "value": "any_extended" },
+                { "value": "cert_signing" },
+                { "value": "client_auth" },
+                { "value": "code_signing" },
+                { "value": "content_commitment" },
+                { "value": "crl_signing" },
+                { "value": "data_encipherment" },
+                { "value": "decipher_only" },
+                { "value": "digital_signature" },
+                { "value": "email_protection" },
+                { "value": "encipher_only" },
+                { "value": "ipsec_end_system" },
+                { "value": "ipsec_tunnel" },
+                { "value": "ipsec_user" },
+                { "value": "key_agreement" },
+                { "value": "key_encipherment" },
+                { "value": "microsoft_commercial_code_signing" },
+                { "value": "microsoft_kernel_code_signing" },
+                { "value": "microsoft_server_gated_crypto" },
+                { "value": "netscape_server_gated_crypto" },
+                { "value": "ocsp_signing" },
+                { "value": "server_auth" },
+                { "value": "timestamping" }
+            ]
+        },
+        "tls-self-signed-cert:index:Algorithm": {
+            "type": "string",
+            "enum": [
+                {
+                    "value": "RSA"
+                },
+                {
+                    "value": "ECDSA"
+                },
+                {
+                    "value": "ED25519"
+                }
+            ]
+        },
+        "tls-self-signed-cert:index:EcdsaCurve": {
+            "type": "string",
+            "enum": [
+                {
+                    "value": "P224"
+                },
+                {
+                    "value": "P256"
+                },
+                {
+                    "value": "P384"
+                },
+                {
+                    "value": "P521"
+                }
+            ]
+        }
+    },
     "resources": {
-        "xyz:index:StaticPage": {
+        "tls-self-signed-cert:index:SelfSignedCertificate": {
             "isComponent": true,
             "inputProperties": {
-                "indexContent": {
+                "algorithm": {
+                    "willReplaceOnChanges": true,
+                    "description": "Name of the algorithm to use when generating the private key. Currently-supported values are `RSA`, `ECDSA` and `ED25519` (default: `RSA`).\n",
+                    "$ref": "#/types/tls-self-signed-cert:index:Algorithm"
+                },
+                "ecdsaCurve": {
+                    "willReplaceOnChanges": true,
+                    "description": "When `algorithm` is `ECDSA`, the name of the elliptic curve to use. Currently-supported values are `P224`, `P256`, `P384` or `P521` (default: `P224`).\n",
+                    "$ref": "#/types/tls-self-signed-cert:index:EcdsaCurve"
+                },
+                "rsaBits": {
+                    "type": "integer",
+                    "description": "When `algorithm` is `RSA`, the size of the generated RSA key, in bits (default: `2048`).\n",
+                    "willReplaceOnChanges": true
+                },
+                "validityPeriodHours": {
+                    "willReplaceOnChanges": true,
+                    "type": "integer",
+                    "description": "Number of hours, after initial issuing, that the certificate will remain valid for.\n"
+                },
+                "localValidityPeriodHours": {
+                    "willReplaceOnChanges": true,
+                    "type": "integer",
+                    "description": "Number of hours, after initial issuing, that the local certificate will remain valid for.\n"
+                },
+                "allowedUses": {
+                    "willReplaceOnChanges": true,
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/tls-self-signed-cert:index:AllowedUses"
+                    },
+                    "description": "List of key usages allowed for the issued certificate. Values are defined in [RFC 5280](https://datatracker.ietf.org/doc/html/rfc5280) and combine flags defined by both [Key Usages](https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.3) and [Extended Key Usages](https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.12). Accepted values: `any_extended`, `cert_signing`, `client_auth`, `code_signing`, `content_commitment`, `crl_signing`, `data_encipherment`, `decipher_only`, `digital_signature`, `email_protection`, `encipher_only`, `ipsec_end_system`, `ipsec_tunnel`, `ipsec_user`, `key_agreement`, `key_encipherment`, `microsoft_commercial_code_signing`, `microsoft_kernel_code_signing`, `microsoft_server_gated_crypto`, `netscape_server_gated_crypto`, `ocsp_signing`, `server_auth`, `timestamping`.\n"
+                },
+                "subject": {
+                    "$ref": "/tls/v4.6.1/schema.json#/types/tls:index/SelfSignedCertSubject:SelfSignedCertSubject",
+                    "description": "The subject for which a certificate is being requested. The acceptable arguments are all optional and their naming is based upon [Issuer Distinguished Names (RFC5280)](https://tools.ietf.org/html/rfc5280#section-4.1.2.4) section.\n",
+                    "willReplaceOnChanges": true
+                },
+                "dnsName": {
                     "type": "string",
-                    "description": "The HTML content for index.html."
+                    "description": "The DNS name for which a certificate is being requested (i.e. certificate subjects).\n"
+                },
+                "ipAddress": {
+                    "type": "string",
+                    "description": "The IP address for which a certificate is being requested (i.e. certificate subjects).\n"
                 }
             },
             "requiredInputs": [
-                "indexContent"
+                "subject",
+                "validityPeriodHours",
+                "localValidityPeriodHours"
             ],
             "properties": {
-                "bucket": {
-                    "$ref": "/aws/v4.0.0/schema.json#/resources/aws:s3%2Fbucket:Bucket",
-                    "description": "The bucket resource."
+                "pem": {
+                    "type": "string"
                 },
-                "websiteUrl": {
-                    "type": "string",
-                    "description": "The website URL."
+                "privateKey": {
+                    "type": "string"
+                },
+                "caCert": {
+                    "type": "string"
                 }
             },
             "required": [
-                "bucket",
-                "websiteUrl"
+                "pem",
+                "privateKey",
+                "caCert"
             ]
         }
     },
@@ -32,18 +142,19 @@
         "csharp": {
             "packageReferences": {
                 "Pulumi": "3.*",
-                "Pulumi.Aws": "5.*"
+                "Pulumi.Tls": "4.*"
             },
             "respectSchemaVersion": true
         },
         "go": {
             "generateResourceContainerTypes": true,
-            "importBasePath": "github.com/pulumi/pulumi-xyz/sdk/go/xyz",
+            "importBasePath": "github.com/pulumi/pulumi-tls-self-signed-cert/sdk/go/tls-self-signed-cert",
             "respectSchemaVersion": true
         },
         "nodejs": {
+            "containsEnums": true,
             "dependencies": {
-                "@pulumi/aws": "^5.0.0"
+                "@pulumi/tls": "^4.0.0"
             },
             "devDependencies": {
                 "typescript": "^3.7.0"
@@ -53,7 +164,7 @@
         "python": {
             "requires": {
                 "pulumi": ">=3.0.0,<4.0.0",
-                "pulumi-aws": ">=5.0.0,<6.0.0"
+                "pulumi-tls": ">=4.0.0,<5.0.0"
             },
             "respectSchemaVersion": true
         }

@@ -83,32 +83,32 @@ The example `StaticPage` component resource is defined in `schema.json`:
 
 ```json
 "resources": {
-"xyz:index:StaticPage": {
-"isComponent": true,
-"inputProperties": {
-"indexContent": {
-"type": "string",
-"description": "The HTML content for index.html."
-}
-},
-"requiredInputs": [
-"indexContent"
-],
-"properties": {
-"bucket": {
-"$ref": "/aws/v3.30.0/schema.json#/resources/aws:s3%2Fbucket:Bucket",
-"description": "The bucket resource."
-},
-"websiteUrl": {
-"type": "string",
-"description": "The website URL."
-}
-},
-"required": [
-"bucket",
-"websiteUrl"
-]
-}
+    "xyz:index:StaticPage": {
+        "isComponent": true,
+        "inputProperties": {
+            "indexContent": {
+                "type": "string",
+                "description": "The HTML content for index.html."
+            }
+        },
+        "requiredInputs": [
+            "indexContent"
+        ],
+        "properties": {
+            "bucket": {
+                "$ref": "/aws/v3.30.0/schema.json#/resources/aws:s3%2Fbucket:Bucket",
+                "description": "The bucket resource."
+            },
+            "websiteUrl": {
+                "type": "string",
+                "description": "The website URL."
+            }
+        },
+        "required": [
+            "bucket",
+            "websiteUrl"
+        ]
+    }
 }
 ```
 
@@ -120,26 +120,26 @@ Since this component returns a type from the `aws` provider, each SDK must refer
 
 ```json
 "language": {
-"csharp": {
-"packageReferences": {
-"Pulumi": "2.*",
-"Pulumi.Aws": "3.*"
-}
-},
-"nodejs": {
-"dependencies": {
-"@pulumi/aws": "^3.30.0"
-},
-"devDependencies": {
-"typescript": "^3.7.0"
-}
-},
-"python": {
-"requires": {
-"pulumi": ">=2.21.2,<3.0.0",
-"pulumi-aws": ">=3.30.0,<4.0.0"
-}
-}
+    "csharp": {
+        "packageReferences": {
+            "Pulumi": "2.*",
+            "Pulumi.Aws": "3.*"
+        }
+    },
+    "nodejs": {
+        "dependencies": {
+            "@pulumi/aws": "^3.30.0"
+        },
+        "devDependencies": {
+            "typescript": "^3.7.0"
+        }
+    },
+    "python": {
+        "requires": {
+            "pulumi": ">=2.21.2,<3.0.0",
+            "pulumi-aws": ">=3.30.0,<4.0.0"
+        }
+    }
 }
 ```
 
@@ -161,7 +161,7 @@ export class StaticPage extends pulumi.ComponentResource {
     constructor(name: string, args: StaticPageArgs, opts?: pulumi.ComponentResourceOptions) {
         super("xyz:index:StaticPage", name, args, opts);
 
-    ...
+        ...
     }
 }
 ```
@@ -171,7 +171,7 @@ The provider makes this component resource available in the `construct` method i
 
 ```typescript
 async function constructStaticPage(name: string, inputs: pulumi.Inputs,
-                                   options: pulumi.ComponentResourceOptions): Promise<provider.ConstructResult> {
+    options: pulumi.ComponentResourceOptions): Promise<provider.ConstructResult> {
 
     // Create the component resource.
     const staticPage = new StaticPage(name, inputs as StaticPageArgs, options);

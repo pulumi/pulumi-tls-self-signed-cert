@@ -1,4 +1,4 @@
-module github.com/pulumi/pulumi-xyz/sdk
+module github.com/pulumi/pulumi-tls-self-signed-cert/sdk
 
 go 1.17
 
