@@ -107,7 +107,7 @@ func main() {
 **Install**
 
 ```
-dotnet add package Pulumi.AwsIam
+dotnet add package Pulumi.TlsSelfSignedCert
 ```
 
 **Usage**
