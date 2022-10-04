@@ -7,6 +7,32 @@ import * as utilities from "./utilities";
 
 import * as pulumiTls from "@pulumi/tls";
 
+/**
+ * This resources helps you create a self signed certificate.
+ *
+ * ## Example Usage
+ *
+ * ### Self Signed Certificate
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as tls_self_signed_cert from "@pulumi/tls-self-signed-cert";
+ *
+ * const cert = new tls_self_signed_cert.SelfSignedCertificate("cert", {
+ *     dnsName: "cert.example.com",
+ *     validityPeriodHours: 807660,
+ *     localValidityPeriodHours: 17520,
+ *     subject: {
+ *         commonName: "example-cert",
+ *         organization: "example-cert LLC",
+ *     },
+ * });
+ * export const pem = cert.pem;
+ * export const privateKey = cert.privateKey;
+ * export const caCert = cert.caCert;
+ * ```
+ * {{ /example }}\n{{% examples %}}
+ */
 export class SelfSignedCertificate extends pulumi.ComponentResource {
     /** @internal */
     public static readonly __pulumiType = 'tls-self-signed-cert:index:SelfSignedCertificate';
@@ -22,8 +48,17 @@ export class SelfSignedCertificate extends pulumi.ComponentResource {
         return obj['__pulumiType'] === SelfSignedCertificate.__pulumiType;
     }
 
+    /**
+     * Your self signed cert.
+     */
     public /*out*/ readonly caCert!: pulumi.Output<string>;
+    /**
+     * The PEM of your self signed cert.
+     */
     public /*out*/ readonly pem!: pulumi.Output<string>;
+    /**
+     * The private key of your self signed cert.
+     */
     public /*out*/ readonly privateKey!: pulumi.Output<string>;
 
     /**

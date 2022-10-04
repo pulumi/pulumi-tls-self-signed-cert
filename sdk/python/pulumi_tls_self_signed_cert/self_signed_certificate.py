@@ -177,7 +177,27 @@ class SelfSignedCertificate(pulumi.ComponentResource):
                  validity_period_hours: Optional[pulumi.Input[int]] = None,
                  __props__=None):
         """
-        Create a SelfSignedCertificate resource with the given unique name, props, and options.
+        This resources helps you create a self signed certificate.
+
+        ## Example Usage
+
+        ### Self Signed Certificate
+
+        ```python
+        import pulumi
+        import pulumi_tls_self_signed_cert as tls_self_signed_cert
+
+        cert = tls_self_signed_cert.SelfSignedCertificate("cert",
+            dns_name="cert.example.com",
+            validity_period_hours=807660,
+            local_validity_period_hours=17520,
+            subject=%!v(PANIC=Format method: interface conversion: interface {} is json.RawMessage, not python.PackageInfo))
+        pulumi.export("pem", cert.pem)
+        pulumi.export("privateKey", cert.private_key)
+        pulumi.export("caCert", cert.ca_cert)
+        ```
+        {{ /example }}\n{{% examples %}}
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input['Algorithm'] algorithm: Name of the algorithm to use when generating the private key. Currently-supported values are `RSA`, `ECDSA` and `ED25519` (default: `RSA`).
@@ -197,7 +217,27 @@ class SelfSignedCertificate(pulumi.ComponentResource):
                  args: SelfSignedCertificateArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a SelfSignedCertificate resource with the given unique name, props, and options.
+        This resources helps you create a self signed certificate.
+
+        ## Example Usage
+
+        ### Self Signed Certificate
+
+        ```python
+        import pulumi
+        import pulumi_tls_self_signed_cert as tls_self_signed_cert
+
+        cert = tls_self_signed_cert.SelfSignedCertificate("cert",
+            dns_name="cert.example.com",
+            validity_period_hours=807660,
+            local_validity_period_hours=17520,
+            subject=%!v(PANIC=Format method: interface conversion: interface {} is json.RawMessage, not python.PackageInfo))
+        pulumi.export("pem", cert.pem)
+        pulumi.export("privateKey", cert.private_key)
+        pulumi.export("caCert", cert.ca_cert)
+        ```
+        {{ /example }}\n{{% examples %}}
+
         :param str resource_name: The name of the resource.
         :param SelfSignedCertificateArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -264,15 +304,24 @@ class SelfSignedCertificate(pulumi.ComponentResource):
     @property
     @pulumi.getter(name="caCert")
     def ca_cert(self) -> pulumi.Output[str]:
+        """
+        Your self signed cert.
+        """
         return pulumi.get(self, "ca_cert")
 
     @property
     @pulumi.getter
     def pem(self) -> pulumi.Output[str]:
+        """
+        The PEM of your self signed cert.
+        """
         return pulumi.get(self, "pem")
 
     @property
     @pulumi.getter(name="privateKey")
     def private_key(self) -> pulumi.Output[str]:
+        """
+        The private key of your self signed cert.
+        """
         return pulumi.get(self, "private_key")
 

@@ -9,15 +9,56 @@ using Pulumi.Serialization;
 
 namespace Pulumi.TlsSelfSignedCert
 {
+    /// <summary>
+    /// This resources helps you create a self signed certificate.
+    /// 
+    /// ## Example Usage
+    /// 
+    /// ### Self Signed Certificate
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using Pulumi;
+    /// using TlsSelfSignedCert = Pulumi.TlsSelfSignedCert;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     var cert = new TlsSelfSignedCert.SelfSignedCertificate("cert", new()
+    ///     {
+    ///         DnsName = "cert.example.com",
+    ///         ValidityPeriodHours = 807660,
+    ///         LocalValidityPeriodHours = 17520,
+    ///         Subject = %!v(PANIC=Format method: runtime error: invalid memory address or nil pointer dereference),
+    ///     });
+    /// 
+    ///     return new Dictionary&lt;string, object?&gt;
+    ///     {
+    ///         ["pem"] = cert.Pem,
+    ///         ["privateKey"] = cert.PrivateKey,
+    ///         ["caCert"] = cert.CaCert,
+    ///     };
+    /// });
+    /// ```
+    /// {{ /example }}\n{{% examples %}}
+    /// </summary>
     [TlsSelfSignedCertResourceType("tls-self-signed-cert:index:SelfSignedCertificate")]
     public partial class SelfSignedCertificate : Pulumi.ComponentResource
     {
+        /// <summary>
+        /// Your self signed cert.
+        /// </summary>
         [Output("caCert")]
         public Output<string> CaCert { get; private set; } = null!;
 
+        /// <summary>
+        /// The PEM of your self signed cert.
+        /// </summary>
         [Output("pem")]
         public Output<string> Pem { get; private set; } = null!;
 
+        /// <summary>
+        /// The private key of your self signed cert.
+        /// </summary>
         [Output("privateKey")]
         public Output<string> PrivateKey { get; private set; } = null!;
 

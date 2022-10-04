@@ -67,6 +67,7 @@
     "resources": {
         "tls-self-signed-cert:index:SelfSignedCertificate": {
             "isComponent": true,
+            "description": "This resources helps you create a self signed certificate.\n\n{{% examples %}}\n## Example Usage\n\n{{% example %}}\n\n### Self Signed Certificate\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as tls_self_signed_cert from \"@pulumi/tls-self-signed-cert\";\n\nconst cert = new tls_self_signed_cert.SelfSignedCertificate(\"cert\", {\n    dnsName: \"cert.example.com\",\n    validityPeriodHours: 807660,\n    localValidityPeriodHours: 17520,\n    subject: {\n        commonName: \"example-cert\",\n        organization: \"example-cert LLC\",\n    },\n});\nexport const pem = cert.pem;\nexport const privateKey = cert.privateKey;\nexport const caCert = cert.caCert;\n```\n\n```python\nimport pulumi\nimport pulumi_tls_self_signed_cert as tls_self_signed_cert\n\ncert = tls_self_signed_cert.SelfSignedCertificate(\"cert\",\n    dns_name=\"cert.example.com\",\n    validity_period_hours=807660,\n    local_validity_period_hours=17520,\n    subject=%!v(PANIC=Format method: interface conversion: interface {} is json.RawMessage, not python.PackageInfo))\npulumi.export(\"pem\", cert.pem)\npulumi.export(\"privateKey\", cert.private_key)\npulumi.export(\"caCert\", cert.ca_cert)\n```\n\n```go\npackage main\n\nimport (\n    selfSignedCert \"github.com/pulumi/pulumi-tls-self-signed-cert/sdk/go/tls-self-signed-cert\"\n    \"github.com/pulumi/pulumi-tls/sdk/v4/go/tls\"\n    \"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n    pulumi.Run(func(ctx *pulumi.Context) error {\n        cert, err := selfSignedCert.NewSelfSignedCertificate(ctx, \"cert\", &selfSignedCert.SelfSignedCertificateArgs{\n            DnsName:                  pulumi.String(\"cert.example.com\"),\n            ValidityPeriodHours:      pulumi.Int(807660),\n            LocalValidityPeriodHours: pulumi.Int(17520),\n            Subject: tls.SelfSignedCertSubjectArgs{\n                CommonName:   pulumi.String(\"example-cert\"),\n                Organization: pulumi.String(\"example-cert LLC\"),\n            },\n        })\n        if err != nil {\n            return err\n        }\n\n        ctx.Export(\"pem\", cert.Pem)\n        ctx.Export(\"privateKey\", cert.PrivateKey)\n        ctx.Export(\"caCert\", cert.CaCert)\n    })\n}\n```\n\n```csharp\nusing System.Collections.Generic;\nusing Pulumi;\nusing TlsSelfSignedCert = Pulumi.TlsSelfSignedCert;\n\nreturn await Deployment.RunAsync(() => \n{\n    var cert = new TlsSelfSignedCert.SelfSignedCertificate(\"cert\", new()\n    {\n        DnsName = \"cert.example.com\",\n        ValidityPeriodHours = 807660,\n        LocalValidityPeriodHours = 17520,\n        Subject = %!v(PANIC=Format method: runtime error: invalid memory address or nil pointer dereference),\n    });\n\n    return new Dictionary<string, object?>\n    {\n        [\"pem\"] = cert.Pem,\n        [\"privateKey\"] = cert.PrivateKey,\n        [\"caCert\"] = cert.CaCert,\n    };\n});\n```\n\n```yaml\nname: tls-self-signed-cert\nruntime: yaml\nresources:\n    cert:\n        type: \"tls-self-signed-cert:index:SelfSignedCertificate\"\n        properties:\n            dnsName: \"cert.example.com\"\n            validityPeriodHours: 807660\n            localValidityPeriodHours: 17520\n            subject:\n                commonName: \"example-cert\"\n                organization: \"example-cert LLC\"\noutputs:\n    pem: ${cert.pem}\n    privateKey: ${cert.privateKey}\n    caCert: ${cert.caCert}\n```\n{{ /example }}\\n{{% examples %}}\n",
             "inputProperties": {
                 "algorithm": {
                     "willReplaceOnChanges": true,
@@ -122,12 +123,15 @@
             ],
             "properties": {
                 "pem": {
+                    "description": "The PEM of your self signed cert.",
                     "type": "string"
                 },
                 "privateKey": {
+                    "description": "The private key of your self signed cert.",
                     "type": "string"
                 },
                 "caCert": {
+                    "description": "Your self signed cert.",
                     "type": "string"
                 }
             },
