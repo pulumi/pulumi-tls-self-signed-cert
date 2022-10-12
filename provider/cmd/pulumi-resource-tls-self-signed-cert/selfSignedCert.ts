@@ -91,7 +91,7 @@ export class SelfSignedCertificate extends pulumi.ComponentResource {
             certRequestPem: certRequest.certRequestPem,
             caPrivateKeyPem: caKey.privateKeyPem,
             caCertPem: caCert.certPem,
-            validityPeriodHours: args.validityPeriodHours,
+            validityPeriodHours: args.localValidityPeriodHours,
             allowedUses,
         }, { parent: certRequest });
 
