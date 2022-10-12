@@ -2,7 +2,7 @@
 
 This repo is a [Pulumi Package](https://www.pulumi.com/docs/guides/pulumi-packages/) used to provision a self-signed certificate.
 
-It's written in TypeScript, but thanks to Pulumi's multi language SDK generating capability, it create usable SDKs for all of Pulumi's [supported languages](https://www.pulumi.com/docs/intro/languages/)
+It's written in TypeScript, but thanks to Pulumi's multi language SDK generating capability, it creates usable SDKs for all of Pulumi's [supported languages](https://www.pulumi.com/docs/intro/languages/).
 
 ## Usage
 
