@@ -140,7 +140,7 @@ func (o AlgorithmPtrOutput) ToStringPtrOutputWithContext(ctx context.Context) pu
 // AlgorithmInput is an input type that accepts AlgorithmArgs and AlgorithmOutput values.
 // You can construct a concrete instance of `AlgorithmInput` via:
 //
-//          AlgorithmArgs{...}
+//	AlgorithmArgs{...}
 type AlgorithmInput interface {
 	pulumi.Input
 
@@ -325,7 +325,7 @@ func (o AllowedUsesPtrOutput) ToStringPtrOutputWithContext(ctx context.Context) 
 // AllowedUsesInput is an input type that accepts AllowedUsesArgs and AllowedUsesOutput values.
 // You can construct a concrete instance of `AllowedUsesInput` via:
 //
-//          AllowedUsesArgs{...}
+//	AllowedUsesArgs{...}
 type AllowedUsesInput interface {
 	pulumi.Input
 
@@ -363,7 +363,7 @@ func (in *allowedUsesPtr) ToAllowedUsesPtrOutputWithContext(ctx context.Context)
 // AllowedUsesArrayInput is an input type that accepts AllowedUsesArray and AllowedUsesArrayOutput values.
 // You can construct a concrete instance of `AllowedUsesArrayInput` via:
 //
-//          AllowedUsesArray{ AllowedUsesArgs{...} }
+//	AllowedUsesArray{ AllowedUsesArgs{...} }
 type AllowedUsesArrayInput interface {
 	pulumi.Input
 
@@ -536,7 +536,7 @@ func (o EcdsaCurvePtrOutput) ToStringPtrOutputWithContext(ctx context.Context) p
 // EcdsaCurveInput is an input type that accepts EcdsaCurveArgs and EcdsaCurveOutput values.
 // You can construct a concrete instance of `EcdsaCurveInput` via:
 //
-//          EcdsaCurveArgs{...}
+//	EcdsaCurveArgs{...}
 type EcdsaCurveInput interface {
 	pulumi.Input
 
