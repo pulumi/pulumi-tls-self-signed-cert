@@ -1,5 +1,6 @@
 {
     "name": "tls-self-signed-cert",
+    "displayName": "Self Signed Certificate",
     "types": {
         "tls-self-signed-cert:index:emptytype": {
             "type": "object"
