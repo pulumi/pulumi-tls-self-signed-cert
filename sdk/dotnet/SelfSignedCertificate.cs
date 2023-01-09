@@ -142,7 +142,7 @@ namespace Pulumi.TlsSelfSignedCert
         /// The subject for which a certificate is being requested. The acceptable arguments are all optional and their naming is based upon [Issuer Distinguished Names (RFC5280)](https://tools.ietf.org/html/rfc5280#section-4.1.2.4) section.
         /// </summary>
         [Input("subject", required: true)]
-        public Input<Pulumi.Tls.Inputs.SelfSignedCertSubjectArgs> Subject { get; set; } = null!;
+        public Input<Pulumi.TlsSelfSignedCert.Inputs.SelfSignedCertSubject> Subject { get; set; } = null!;
 
         /// <summary>
         /// Number of hours, after initial issuing, that the certificate will remain valid for.

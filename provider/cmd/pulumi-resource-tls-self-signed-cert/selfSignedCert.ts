@@ -80,10 +80,10 @@ export class SelfSignedCertificate extends pulumi.ComponentResource {
         const certRequest = new tls.CertRequest("certRequest", {
             privateKeyPem: key.privateKeyPem,
             dnsNames: [ args.dnsName ],
-            ipAddresses: [ args.ipAddress ],
+            ipAddresses: args.ipAddress ? [ args.ipAddress ] : [],
             subject: {
+                ...args.subject,
                 commonName: args.dnsName,
-                organization: args.subject.organization,
             },
         }, { parent: key });
 
