@@ -8,7 +8,6 @@ import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 from ._enums import *
-import pulumi_tls
 
 __all__ = ['SelfSignedCertificateArgs', 'SelfSignedCertificate']
 
@@ -16,7 +15,7 @@ __all__ = ['SelfSignedCertificateArgs', 'SelfSignedCertificate']
 class SelfSignedCertificateArgs:
     def __init__(__self__, *,
                  local_validity_period_hours: pulumi.Input[int],
-                 subject: pulumi.Input['pulumi_tls.SelfSignedCertSubjectArgs'],
+                 subject: Any,
                  validity_period_hours: pulumi.Input[int],
                  algorithm: Optional[pulumi.Input['Algorithm']] = None,
                  allowed_uses: Optional[pulumi.Input[Sequence[pulumi.Input['AllowedUses']]]] = None,
@@ -27,7 +26,7 @@ class SelfSignedCertificateArgs:
         """
         The set of arguments for constructing a SelfSignedCertificate resource.
         :param pulumi.Input[int] local_validity_period_hours: Number of hours, after initial issuing, that the local certificate will remain valid for.
-        :param pulumi.Input['pulumi_tls.SelfSignedCertSubjectArgs'] subject: The subject for which a certificate is being requested. The acceptable arguments are all optional and their naming is based upon [Issuer Distinguished Names (RFC5280)](https://tools.ietf.org/html/rfc5280#section-4.1.2.4) section.
+        :param Any subject: The subject for which a certificate is being requested. The acceptable arguments are all optional and their naming is based upon [Issuer Distinguished Names (RFC5280)](https://tools.ietf.org/html/rfc5280#section-4.1.2.4) section.
         :param pulumi.Input[int] validity_period_hours: Number of hours, after initial issuing, that the certificate will remain valid for.
         :param pulumi.Input['Algorithm'] algorithm: Name of the algorithm to use when generating the private key. Currently-supported values are `RSA`, `ECDSA` and `ED25519` (default: `RSA`).
         :param pulumi.Input[Sequence[pulumi.Input['AllowedUses']]] allowed_uses: List of key usages allowed for the issued certificate. Values are defined in [RFC 5280](https://datatracker.ietf.org/doc/html/rfc5280) and combine flags defined by both [Key Usages](https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.3) and [Extended Key Usages](https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.12). Accepted values: `any_extended`, `cert_signing`, `client_auth`, `code_signing`, `content_commitment`, `crl_signing`, `data_encipherment`, `decipher_only`, `digital_signature`, `email_protection`, `encipher_only`, `ipsec_end_system`, `ipsec_tunnel`, `ipsec_user`, `key_agreement`, `key_encipherment`, `microsoft_commercial_code_signing`, `microsoft_kernel_code_signing`, `microsoft_server_gated_crypto`, `netscape_server_gated_crypto`, `ocsp_signing`, `server_auth`, `timestamping`.
@@ -66,14 +65,14 @@ class SelfSignedCertificateArgs:
 
     @property
     @pulumi.getter
-    def subject(self) -> pulumi.Input['pulumi_tls.SelfSignedCertSubjectArgs']:
+    def subject(self) -> Any:
         """
         The subject for which a certificate is being requested. The acceptable arguments are all optional and their naming is based upon [Issuer Distinguished Names (RFC5280)](https://tools.ietf.org/html/rfc5280#section-4.1.2.4) section.
         """
         return pulumi.get(self, "subject")
 
     @subject.setter
-    def subject(self, value: pulumi.Input['pulumi_tls.SelfSignedCertSubjectArgs']):
+    def subject(self, value: Any):
         pulumi.set(self, "subject", value)
 
     @property
@@ -173,7 +172,7 @@ class SelfSignedCertificate(pulumi.ComponentResource):
                  ip_address: Optional[pulumi.Input[str]] = None,
                  local_validity_period_hours: Optional[pulumi.Input[int]] = None,
                  rsa_bits: Optional[pulumi.Input[int]] = None,
-                 subject: Optional[pulumi.Input[pulumi.InputType['pulumi_tls.SelfSignedCertSubjectArgs']]] = None,
+                 subject: Optional[Any] = None,
                  validity_period_hours: Optional[pulumi.Input[int]] = None,
                  __props__=None):
         """
@@ -207,7 +206,7 @@ class SelfSignedCertificate(pulumi.ComponentResource):
         :param pulumi.Input[str] ip_address: The IP address for which a certificate is being requested (i.e. certificate subjects).
         :param pulumi.Input[int] local_validity_period_hours: Number of hours, after initial issuing, that the local certificate will remain valid for.
         :param pulumi.Input[int] rsa_bits: When `algorithm` is `RSA`, the size of the generated RSA key, in bits (default: `2048`).
-        :param pulumi.Input[pulumi.InputType['pulumi_tls.SelfSignedCertSubjectArgs']] subject: The subject for which a certificate is being requested. The acceptable arguments are all optional and their naming is based upon [Issuer Distinguished Names (RFC5280)](https://tools.ietf.org/html/rfc5280#section-4.1.2.4) section.
+        :param Any subject: The subject for which a certificate is being requested. The acceptable arguments are all optional and their naming is based upon [Issuer Distinguished Names (RFC5280)](https://tools.ietf.org/html/rfc5280#section-4.1.2.4) section.
         :param pulumi.Input[int] validity_period_hours: Number of hours, after initial issuing, that the certificate will remain valid for.
         """
         ...
@@ -260,7 +259,7 @@ class SelfSignedCertificate(pulumi.ComponentResource):
                  ip_address: Optional[pulumi.Input[str]] = None,
                  local_validity_period_hours: Optional[pulumi.Input[int]] = None,
                  rsa_bits: Optional[pulumi.Input[int]] = None,
-                 subject: Optional[pulumi.Input[pulumi.InputType['pulumi_tls.SelfSignedCertSubjectArgs']]] = None,
+                 subject: Optional[Any] = None,
                  validity_period_hours: Optional[pulumi.Input[int]] = None,
                  __props__=None):
         if opts is None:

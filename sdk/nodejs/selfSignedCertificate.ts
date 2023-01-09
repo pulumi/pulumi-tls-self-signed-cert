@@ -5,7 +5,7 @@ import * as pulumi from "@pulumi/pulumi";
 import { input as inputs, output as outputs, enums } from "./types";
 import * as utilities from "./utilities";
 
-import * as pulumiTls from "@pulumi/tls";
+import {SelfSignedCertSubject} from "./index";
 
 /**
  * This resources helps you create a self signed certificate.
@@ -138,7 +138,7 @@ export interface SelfSignedCertificateArgs {
     /**
      * The subject for which a certificate is being requested. The acceptable arguments are all optional and their naming is based upon [Issuer Distinguished Names (RFC5280)](https://tools.ietf.org/html/rfc5280#section-4.1.2.4) section.
      */
-    subject: pulumi.Input<pulumiTls.types.input.SelfSignedCertSubject>;
+    subject: pulumi.Input<SelfSignedCertSubject>;
     /**
      * Number of hours, after initial issuing, that the certificate will remain valid for.
      */
