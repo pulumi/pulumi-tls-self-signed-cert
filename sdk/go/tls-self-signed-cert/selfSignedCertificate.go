@@ -8,6 +8,7 @@ import (
 	"reflect"
 
 	"github.com/pkg/errors"
+	"github.com/pulumi/pulumi-tls/sdk/v4/go/tls"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -102,7 +103,7 @@ type selfSignedCertificateArgs struct {
 	// When `algorithm` is `RSA`, the size of the generated RSA key, in bits (default: `2048`).
 	RsaBits *int `pulumi:"rsaBits"`
 	// The subject for which a certificate is being requested. The acceptable arguments are all optional and their naming is based upon [Issuer Distinguished Names (RFC5280)](https://tools.ietf.org/html/rfc5280#section-4.1.2.4) section.
-	Subject tls.SelfSignedCertSubject `pulumi:"subject"`
+	Subject SelfSignedCertSubject `pulumi:"subject"`
 	// Number of hours, after initial issuing, that the certificate will remain valid for.
 	ValidityPeriodHours int `pulumi:"validityPeriodHours"`
 }

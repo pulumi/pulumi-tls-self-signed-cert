@@ -1,4 +1,4 @@
-VERSION         := 0.1.2
+VERSION         := 0.1.3
 
 PACK            := tls-self-signed-cert
 PROJECT         := github.com/pulumi/pulumi-${PACK}
