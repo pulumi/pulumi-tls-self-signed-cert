@@ -1,3 +1,0 @@
-name: tls-self-signed-cert-go
-description: A Go Pulumi program that self signs a certificate
-runtime: go

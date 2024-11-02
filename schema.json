@@ -1,126 +1,56 @@
 {
     "name": "tls-self-signed-cert",
     "displayName": "Self Signed Certificate",
-    "types": {
-        "tls-self-signed-cert:index:emptytype": {
-            "type": "object"
-        },
-        "tls-self-signed-cert:index:AllowedUses": {
-            "type": "string",
-            "enum": [
-                { "value": "any_extended" },
-                { "value": "cert_signing" },
-                { "value": "client_auth" },
-                { "value": "code_signing" },
-                { "value": "content_commitment" },
-                { "value": "crl_signing" },
-                { "value": "data_encipherment" },
-                { "value": "decipher_only" },
-                { "value": "digital_signature" },
-                { "value": "email_protection" },
-                { "value": "encipher_only" },
-                { "value": "ipsec_end_system" },
-                { "value": "ipsec_tunnel" },
-                { "value": "ipsec_user" },
-                { "value": "key_agreement" },
-                { "value": "key_encipherment" },
-                { "value": "microsoft_commercial_code_signing" },
-                { "value": "microsoft_kernel_code_signing" },
-                { "value": "microsoft_server_gated_crypto" },
-                { "value": "netscape_server_gated_crypto" },
-                { "value": "ocsp_signing" },
-                { "value": "server_auth" },
-                { "value": "timestamping" }
-            ]
-        },
-        "tls-self-signed-cert:index:Algorithm": {
-            "type": "string",
-            "enum": [
-                {
-                    "value": "RSA"
-                },
-                {
-                    "value": "ECDSA"
-                },
-                {
-                    "value": "ED25519"
-                }
-            ]
-        },
-        "tls-self-signed-cert:index:EcdsaCurve": {
-            "type": "string",
-            "enum": [
-                {
-                    "value": "P224"
-                },
-                {
-                    "value": "P256"
-                },
-                {
-                    "value": "P384"
-                },
-                {
-                    "value": "P521"
-                }
-            ]
-        }
-    },
+    "version": "0.1.3",
     "resources": {
         "tls-self-signed-cert:index:SelfSignedCertificate": {
             "isComponent": true,
-            "description": "This resources helps you create a self signed certificate.\n\n{{% examples %}}\n## Example Usage\n\n{{% example %}}\n\n### Self Signed Certificate\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as tls_self_signed_cert from \"@pulumi/tls-self-signed-cert\";\n\nconst cert = new tls_self_signed_cert.SelfSignedCertificate(\"cert\", {\n    dnsName: \"cert.example.com\",\n    validityPeriodHours: 807660,\n    localValidityPeriodHours: 17520,\n    subject: {\n        commonName: \"example-cert\",\n        organization: \"example-cert LLC\",\n    },\n});\nexport const pem = cert.pem;\nexport const privateKey = cert.privateKey;\nexport const caCert = cert.caCert;\n```\n\n```python\nimport pulumi\nimport pulumi_tls_self_signed_cert as tls_self_signed_cert\n\ncert = tls_self_signed_cert.SelfSignedCertificate(\"cert\",\n    dns_name=\"cert.example.com\",\n    validity_period_hours=807660,\n    local_validity_period_hours=17520,\n    subject=%!v(PANIC=Format method: interface conversion: interface {} is json.RawMessage, not python.PackageInfo))\npulumi.export(\"pem\", cert.pem)\npulumi.export(\"privateKey\", cert.private_key)\npulumi.export(\"caCert\", cert.ca_cert)\n```\n\n```go\npackage main\n\nimport (\n    selfSignedCert \"github.com/pulumi/pulumi-tls-self-signed-cert/sdk/go/tls-self-signed-cert\"\n    \"github.com/pulumi/pulumi-tls/sdk/v4/go/tls\"\n    \"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n    pulumi.Run(func(ctx *pulumi.Context) error {\n        cert, err := selfSignedCert.NewSelfSignedCertificate(ctx, \"cert\", &selfSignedCert.SelfSignedCertificateArgs{\n            DnsName:                  pulumi.String(\"cert.example.com\"),\n            ValidityPeriodHours:      pulumi.Int(807660),\n            LocalValidityPeriodHours: pulumi.Int(17520),\n            Subject: tls.SelfSignedCertSubjectArgs{\n                CommonName:   pulumi.String(\"example-cert\"),\n                Organization: pulumi.String(\"example-cert LLC\"),\n            },\n        })\n        if err != nil {\n            return err\n        }\n\n        ctx.Export(\"pem\", cert.Pem)\n        ctx.Export(\"privateKey\", cert.PrivateKey)\n        ctx.Export(\"caCert\", cert.CaCert)\n    })\n}\n```\n\n```csharp\nusing System.Collections.Generic;\nusing Pulumi;\nusing TlsSelfSignedCert = Pulumi.TlsSelfSignedCert;\n\nreturn await Deployment.RunAsync(() => \n{\n    var cert = new TlsSelfSignedCert.SelfSignedCertificate(\"cert\", new()\n    {\n        DnsName = \"cert.example.com\",\n        ValidityPeriodHours = 807660,\n        LocalValidityPeriodHours = 17520,\n        Subject = %!v(PANIC=Format method: runtime error: invalid memory address or nil pointer dereference),\n    });\n\n    return new Dictionary<string, object?>\n    {\n        [\"pem\"] = cert.Pem,\n        [\"privateKey\"] = cert.PrivateKey,\n        [\"caCert\"] = cert.CaCert,\n    };\n});\n```\n\n```yaml\nname: tls-self-signed-cert\nruntime: yaml\nresources:\n    cert:\n        type: \"tls-self-signed-cert:index:SelfSignedCertificate\"\n        properties:\n            dnsName: \"cert.example.com\"\n            validityPeriodHours: 807660\n            localValidityPeriodHours: 17520\n            subject:\n                commonName: \"example-cert\"\n                organization: \"example-cert LLC\"\noutputs:\n    pem: ${cert.pem}\n    privateKey: ${cert.privateKey}\n    caCert: ${cert.caCert}\n```\n{{ /example }}\\n{{% examples %}}\n",
+            "description": "This resources helps you create a self signed certificate.",
             "inputProperties": {
                 "algorithm": {
-                    "willReplaceOnChanges": true,
-                    "description": "Name of the algorithm to use when generating the private key. Currently-supported values are `RSA`, `ECDSA` and `ED25519` (default: `RSA`).\n",
-                    "$ref": "#/types/tls-self-signed-cert:index:Algorithm"
+                    "description": "Name of the algorithm to use when generating the private key. Currently-supported values are `RSA`, `ECDSA` and `ED25519` (default: `RSA`).",
+                    "type": "string"
                 },
                 "ecdsaCurve": {
-                    "willReplaceOnChanges": true,
-                    "description": "When `algorithm` is `ECDSA`, the name of the elliptic curve to use. Currently-supported values are `P224`, `P256`, `P384` or `P521` (default: `P224`).\n",
-                    "$ref": "#/types/tls-self-signed-cert:index:EcdsaCurve"
-                },
-                "rsaBits": {
-                    "type": "integer",
-                    "description": "When `algorithm` is `RSA`, the size of the generated RSA key, in bits (default: `2048`).\n",
-                    "willReplaceOnChanges": true
-                },
-                "validityPeriodHours": {
-                    "willReplaceOnChanges": true,
-                    "type": "integer",
-                    "description": "Number of hours, after initial issuing, that the certificate will remain valid for.\n"
-                },
-                "localValidityPeriodHours": {
-                    "willReplaceOnChanges": true,
-                    "type": "integer",
-                    "description": "Number of hours, after initial issuing, that the local certificate will remain valid for.\n"
+                    "description": "When `algorithm` is `ECDSA`, the name of the elliptic curve to use. Currently-supported values are `P224`, `P256`, `P384` or `P521` (default: `P224`).",
+                    "type": "string"
                 },
                 "allowedUses": {
-                    "willReplaceOnChanges": true,
+                    "description": "List of key usages allowed for the issued certificate. Values are defined in [RFC 5280](https:datatracker.ietf.org/doc/html/rfc5280) and combine flags defined by both [Key Usages](https:datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.3) and [Extended Key Usages](https:datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.12). Accepted values: `any_extended`, `cert_signing`, `client_auth`, `code_signing`, `content_commitment`, `crl_signing`, `data_encipherment`, `decipher_only`, `digital_signature`, `email_protection`, `encipher_only`, `ipsec_end_system`, `ipsec_tunnel`, `ipsec_user`, `key_agreement`, `key_encipherment`, `microsoft_commercial_code_signing`, `microsoft_kernel_code_signing`, `microsoft_server_gated_crypto`, `netscape_server_gated_crypto`, `ocsp_signing`, `server_auth`, `timestamping`.",
                     "type": "array",
                     "items": {
-                        "$ref": "#/types/tls-self-signed-cert:index:AllowedUses"
-                    },
-                    "description": "List of key usages allowed for the issued certificate. Values are defined in [RFC 5280](https://datatracker.ietf.org/doc/html/rfc5280) and combine flags defined by both [Key Usages](https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.3) and [Extended Key Usages](https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.12). Accepted values: `any_extended`, `cert_signing`, `client_auth`, `code_signing`, `content_commitment`, `crl_signing`, `data_encipherment`, `decipher_only`, `digital_signature`, `email_protection`, `encipher_only`, `ipsec_end_system`, `ipsec_tunnel`, `ipsec_user`, `key_agreement`, `key_encipherment`, `microsoft_commercial_code_signing`, `microsoft_kernel_code_signing`, `microsoft_server_gated_crypto`, `netscape_server_gated_crypto`, `ocsp_signing`, `server_auth`, `timestamping`.\n"
+                        "type": "string"
+                    }
+                },
+                "rsaBits": {
+                    "description": "When `algorithm` is `RSA`, the size of the generated RSA key, in bits (default: `2048`).",
+                    "type": "number"
+                },
+                "validityPeriodHours": {
+                    "description": "Number of hours, after initial issuing, that the certificate will remain valid for.",
+                    "type": "number"
+                },
+                "localValidityPeriodHours": {
+                    "description": "Number of hours, after initial issuing, that the local certificate will remain valid for.",
+                    "type": "number"
                 },
                 "subject": {
-                    "$ref": "/tls/v4.6.1/schema.json#/types/tls:index/SelfSignedCertSubject:SelfSignedCertSubject",
-                    "description": "The subject for which a certificate is being requested. The acceptable arguments are all optional and their naming is based upon [Issuer Distinguished Names (RFC5280)](https://tools.ietf.org/html/rfc5280#section-4.1.2.4) section.\n",
-                    "willReplaceOnChanges": true
+                    "description": "The subject for which a certificate is being requested. The acceptable arguments are all optional and their naming is based upon [Issuer Distinguished Names (RFC5280)](https:tools.ietf.org/html/rfc5280#section-4.1.2.4) section.",
+                    "$ref": "#/types/tls-self-signed-cert:index:input_subject_SelfSignedCertSubject"
                 },
                 "dnsName": {
-                    "type": "string",
-                    "description": "The DNS name for which a certificate is being requested (i.e. certificate subjects).\n"
+                    "description": "The DNS name for which a certificate is being requested (i.e. certificate subjects).",
+                    "type": "string"
                 },
                 "ipAddress": {
-                    "type": "string",
-                    "description": "The IP address for which a certificate is being requested (i.e. certificate subjects).\n"
+                    "description": "The IP address for which a certificate is being requested (i.e. certificate subjects).",
+                    "type": "string"
                 }
             },
             "requiredInputs": [
-                "subject",
                 "validityPeriodHours",
-                "localValidityPeriodHours"
+                "localValidityPeriodHours",
+                "subject"
             ],
             "properties": {
                 "pem": {
@@ -143,33 +73,58 @@
             ]
         }
     },
+    "types": {
+        "tls-self-signed-cert:index:input_subject_SelfSignedCertSubject": {
+            "type": "object",
+            "properties": {
+                "commonName": {
+                    "description": "Distinguished name: `CN`",
+                    "type": "string"
+                },
+                "country": {
+                    "description": "Distinguished name: `C`",
+                    "type": "string"
+                },
+                "locality": {
+                    "description": "Distinguished name: `L`",
+                    "type": "string"
+                },
+                "organization": {
+                    "description": "Distinguished name: `O`",
+                    "type": "string"
+                },
+                "organizationalUnit": {
+                    "description": "Distinguished name: `OU`",
+                    "type": "string"
+                },
+                "postalCode": {
+                    "description": "Distinguished name: `PC`",
+                    "type": "string"
+                },
+                "province": {
+                    "description": "Distinguished name: `ST`",
+                    "type": "string"
+                },
+                "serialNumber": {
+                    "description": "Distinguished name: `SERIALNUMBER`",
+                    "type": "string"
+                },
+                "streetAddresses": {
+                    "description": "Distinguished name: `STREET`",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "required": []
+        }
+    },
     "language": {
-        "csharp": {
-            "packageReferences": {
-                "Pulumi": "3.*",
-                "Pulumi.Tls": "4.*"
-            },
-            "respectSchemaVersion": true
-        },
-        "go": {
-            "generateResourceContainerTypes": true,
-            "importBasePath": "github.com/pulumi/pulumi-tls-self-signed-cert/sdk/go/tls-self-signed-cert",
-            "respectSchemaVersion": true
-        },
         "nodejs": {
-            "containsEnums": true,
-            "dependencies": {
-                "@pulumi/tls": "^4.0.0"
-            },
+            "dependencies": {},
             "devDependencies": {
                 "typescript": "^3.7.0"
-            },
-            "respectSchemaVersion": true
-        },
-        "python": {
-            "requires": {
-                "pulumi": ">=3.0.0,<4.0.0",
-                "pulumi-tls": ">=4.0.0,<5.0.0"
             },
             "respectSchemaVersion": true
         }
