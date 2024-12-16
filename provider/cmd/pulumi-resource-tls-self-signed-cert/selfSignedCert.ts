@@ -77,7 +77,7 @@ export class SelfSignedCertificate extends pulumi.ComponentResource {
             rsaBits,
         });
 
-        const certRequest = new tls.CertRequest("certRequest", {
+        const certRequest = new tls.CertRequest(`${name}-certRequest`, {
             privateKeyPem: key.privateKeyPem,
             dnsNames: [ args.dnsName ],
             ipAddresses: args.ipAddress ? [ args.ipAddress ] : [],
@@ -87,7 +87,7 @@ export class SelfSignedCertificate extends pulumi.ComponentResource {
             },
         }, { parent: key });
 
-        const cert = new tls.LocallySignedCert("cert", {
+        const cert = new tls.LocallySignedCert(`${name}-cert`, {
             certRequestPem: certRequest.certRequestPem,
             caPrivateKeyPem: caKey.privateKeyPem,
             caCertPem: caCert.certPem,
